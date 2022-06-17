@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import Joi from 'joi';
 
 @Module({
@@ -9,8 +10,30 @@ import Joi from 'joi';
             envFilePath: '.env',
             isGlobal: true,
             validationSchema: Joi.object({
-                PORT: Joi.number().required().default(4200),
+                PORT: Joi.number().required(),
+                POSTGRES_HOST: Joi.string().required(),
+                POSTGRES_PORT: Joi.number().required(),
+                POSTGRES_USERNAME: Joi.string().required(),
+                POSTGRES_PASSWORD: Joi.string().required(),
+                POSTGRES_DATABASE: Joi.string().required(),
+                SYNCHRONIZE: Joi.string().valid('YES'),
             }),
+        }),
+        TypeOrmModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory(configService: ConfigService): TypeOrmModuleOptions {
+                return {
+                    type: 'postgres',
+                    host: configService.get('POSTGRES_HOST'),
+                    port: Number.parseInt(configService.get('POSTGRES_PORT')),
+                    username: configService.get('POSTGRES_USERNAME'),
+                    password: configService.get('POSTGRES_PASSWORD'),
+                    database: configService.get('POSTGRES_DATABASE'),
+                    autoLoadEntities: true,
+                    synchronize: configService.get('SYNCHRONIZE') === 'YES',
+                };
+            },
         }),
     ],
     controllers: [],
