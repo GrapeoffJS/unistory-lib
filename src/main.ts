@@ -15,9 +15,9 @@ async function bootstrap() {
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         allowedHeaders: configService
             .get<string>('CORS_ALLOWED_HEADERS')
-            .split(' '),
+            ?.split(' '),
         optionsSuccessStatus: 200,
-        origin: configService.get<string>('CORS_ALLOWED_ORIGINS').split(' '),
+        origin: configService.get<string>('CORS_ALLOWED_ORIGINS')?.split(' '),
     });
     app.use(helmet());
     app.useGlobalPipes(
