@@ -19,7 +19,10 @@ export class CrudService {
 
     async getById(id: string) {
         try {
-            return await this.readerRepository.findOneByOrFail({ id });
+            return await this.readerRepository.findOneOrFail({
+                where: { id },
+                relations: ['books'],
+            });
         } catch {
             throw new NotFoundException();
         }
