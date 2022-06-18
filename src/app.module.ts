@@ -17,8 +17,8 @@ import Joi from 'joi';
                 POSTGRES_PASSWORD: Joi.string().required(),
                 POSTGRES_DATABASE: Joi.string().required(),
                 SYNCHRONIZE: Joi.string().valid('YES'),
-                CORS_ALLOWED_HEADERS: Joi.string(),
-                CORS_ALLOWED_ORIGINS: Joi.string(),
+                CORS_ALLOWED_HEADERS: Joi.string().optional(),
+                CORS_ALLOWED_ORIGINS: Joi.string().optional(),
             }),
         }),
         TypeOrmModule.forRootAsync({
