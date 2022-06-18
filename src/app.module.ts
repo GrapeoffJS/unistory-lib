@@ -15,7 +15,7 @@ import { ReadersModule } from './readers/readers.module';
             validationSchema: Joi.object({
                 PORT: Joi.number().required(),
                 POSTGRES_HOST: Joi.string().required(),
-                POSTGRES_PORT: Joi.number().required(),
+                POSTGRES_PORT: Joi.number(),
                 POSTGRES_USERNAME: Joi.string().required(),
                 POSTGRES_PASSWORD: Joi.string().required(),
                 POSTGRES_DATABASE: Joi.string().required(),
@@ -31,7 +31,9 @@ import { ReadersModule } from './readers/readers.module';
                 return {
                     type: 'postgres',
                     host: configService.get('POSTGRES_HOST'),
-                    port: Number.parseInt(configService.get('POSTGRES_PORT')),
+                    port:
+                        Number.parseInt(configService.get('POSTGRES_PORT')) ||
+                        null,
                     username: configService.get('POSTGRES_USERNAME'),
                     password: configService.get('POSTGRES_PASSWORD'),
                     database: configService.get('POSTGRES_DATABASE'),
