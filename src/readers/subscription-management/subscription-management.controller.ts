@@ -4,7 +4,7 @@ import { ApiParam, ApiTags } from '@nestjs/swagger';
 import { UuidDto } from '../../common/dto/uuid.dto';
 import { SubscriptionManagementService } from './subscription-management.service';
 
-@ApiTags('reader/subscription')
+@ApiTags('/reader/subscription')
 @Controller('readers')
 export class SubscriptionManagementController {
     constructor(
