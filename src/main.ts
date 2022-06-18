@@ -30,10 +30,11 @@ async function bootstrap() {
         }),
     );
 
+    app.setGlobalPrefix('api');
     app.enableVersioning({
-        type: VersioningType.URI,
-        prefix: 'api',
         defaultVersion: '1',
+        prefix: 'v',
+        type: VersioningType.URI,
     });
 
     const swaggerConfig = new DocumentBuilder()
@@ -42,7 +43,6 @@ async function bootstrap() {
             'Implementation of the API for the library as part of the test task',
         )
         .setVersion('1.0')
-        .addTag('Library')
         .build();
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
