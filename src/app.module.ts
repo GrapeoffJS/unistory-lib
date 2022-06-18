@@ -3,6 +3,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import Joi from 'joi';
 
+import { BooksModule } from './books/books.module';
+import { ReadersModule } from './readers/readers.module';
+
 @Module({
     imports: [
         ConfigModule.forRoot({
@@ -37,6 +40,8 @@ import Joi from 'joi';
                 };
             },
         }),
+        ReadersModule,
+        BooksModule,
     ],
     controllers: [],
     providers: [],
