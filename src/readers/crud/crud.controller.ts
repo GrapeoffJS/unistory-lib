@@ -15,7 +15,7 @@ import { CrudService } from './crud.service';
 import { CreateReaderDto } from './dto/create-reader.dto';
 import { UpdateReaderDto } from './dto/update-reader.dto';
 
-@ApiTags('Readers')
+@ApiTags('/readers')
 @Controller('readers')
 export class CrudController {
     constructor(private readonly crudService: CrudService) {}

@@ -5,7 +5,7 @@ import { BookEntity } from '../entities/book.entity';
 import { CrudService } from './crud.service';
 import { CreateBookDto } from './dto/create-book.dto';
 
-@ApiTags('books')
+@ApiTags('/books')
 @Controller('books')
 export class CrudController {
     constructor(private readonly crudService: CrudService) {}
